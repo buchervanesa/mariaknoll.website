@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Display de Categorías</title>
+  </head>
+  <body>
+    <h1>Display de Categorías</h1>
+
+    <!-- Sección para mostrar todas las categorías -->
+    <div id="listaCategorias"></div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+      // Función para cargar y mostrar las categorías
+      async function cargarCategorias() {
+        try {
+          const response = await fetch("/productos");
+          if (!response.ok) {
+            throw new Error("Hubo un problema al obtener las categorías");
+          }
+          const categorias = await response.json();
+          // Obtener el contenedor de categorías
+          const listaCategorias = document.getElementById("listaCategorias");
+          // Limpiar cualquier contenido previo
+          listaCategorias.innerHTML = "";
+          // Iterar sobre cada categoría y mostrarla en el contenedor
+          categorias.forEach((categoria) => {
+            // Crear un elemento de lista para la categoría
+            const categoriaElement = document.createElement("div");
+            // Agregar el nombre y el precio de la categoría
+            categoriaElement.innerHTML = `
+        <h2>${categoria.nombre}</h2>
+        <p>categoria: ${categoria.categoria}</p>
+        <p>Precio: ${categoria.precio}</p>
+        ${
+          categoria.imagenes && categoria.imagenes.length > 0
+            ? categoria.imagenes
+                .map((imagen) => `<img src="uploads/${imagen}" alt="Imagen de ${categoria.nombre}" style="max-width: 200px; max-height: 200px; margin-right: 10px;">`)
+                .join("")
+            : "<p>No hay imágenes disponibles</p>"
+        }
+      `;
+            // Agregar el elemento de lista al contenedor de categorías
+            listaCategorias.appendChild(categoriaElement);
+          });
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al cargar las categorías");
+        }
+      }
+
+      // Llamar a la función cargarCategorias al cargar la página para mostrar las categorías
+      cargarCategorias();
+    </script>
+  </body>
+</html>
