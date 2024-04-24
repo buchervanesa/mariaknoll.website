@@ -315,3 +315,14 @@ form{
   
  
 }
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espacio entre las tarjetas */
+}
+
+.card {
+  /* Estilos de tu tarjeta */
+  /* Puedes ajustar el ancho de la tarjeta según tus necesidades */
+  width: 200px;
+}

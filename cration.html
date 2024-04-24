@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+/*<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
         <label for="precio">Precio:</label>
         <input type="number" id="precio" name="precio"><br><br>
         <label for="imagen">Imagen:</label>
-        <input type="file" name="imagen" accept="image/*" multiple required />
+        <input type="file" name="imagen" accept="imagen/*" multiple required />
         <button type="button" onclick="uploadImages()">Upload</button>
       </form>
 
@@ -30,9 +30,12 @@
 
       <div id="errorMessage" style="color: red"></div>
 
+      <div id="productosContainer"></div>
+      <div id="formDataContainer"></div>
+
       <script>
         // Function to handle image upload
-        function uploadImages() {
+       /* function uploadImages() {
           const form = document.getElementById("uploadForm");
           const formData = new FormData(form);
 
@@ -63,8 +66,8 @@
             .then((response) => response.json())
             .then((images) => {
               const imageContainer = document.getElementById("imageContainer");
-              imageContainer.innerHTML = ""; // Clear previous entries
-              document.getElementById("errorMessage").textContent = ""; // Clear error message
+              //imageContainer.innerHTML = ""; // Clear previous entries
+             // document.getElementById("errorMessage").textContent = ""; // Clear error message
 
               images.forEach((image) => {
                 const img = document.createElement("img");
@@ -123,6 +126,238 @@
         function openImageInNewTab(imagePath) {
           window.open(imagePath, "_blank");
         }
+
+
+        function uploadImages() {
+  const form = document.getElementById("uploadForm");
+  const formData = new FormData(form);
+
+  fetch("http://localhost:5000/api/vestidos", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error uploading images: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      renderCard(data); // Render the data in a card
+      fetchImages(); // Refresh the image list after upload
+    })
+    .catch((error) => {
+      console.error(`Error: ${error.message}`);
+      document.getElementById("errorMessage").textContent = `Error: ${error.message}`;
+    });
+}
+*/
+function uploadImages() {
+  const form = document.getElementById("uploadForm");
+  const formData = new FormData(form);
+
+  fetch("http://localhost:5000/api/vestidos", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error uploading images: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      renderCard(data); // Render the data in a card
+      fetchImages(); // Refresh the image list after upload
+    })
+    .catch((error) => {
+      console.error(`Error: ${error.message}`);
+      document.getElementById("errorMessage").textContent = `Error: ${error.message}`;
+    });
+}
+
+function renderCard(data) {
+  const cardsContainer = document.getElementById("cardsContainer");
+
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const image = document.createElement("img");
+  image.src = `/img/${data.imagen}`;
+  image.alt = data.nombre;
+
+  const cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
+
+  const title = document.createElement("h5");
+  title.classList.add("card-title");
+  title.textContent = data.nombre;
+
+  const price = document.createElement("p");
+  price.classList.add("card-text");
+  price.textContent = `Precio: ${data.precio}`;
+
+  const category = document.createElement("p");
+  category.classList.add("card-text");
+  category.textContent = `Categoría: ${data.categoria}`;
+
+  cardBody.appendChild(title);
+  cardBody.appendChild(price);
+  cardBody.appendChild(category);
+
+  card.appendChild(image);
+  card.appendChild(cardBody);
+
+  cardsContainer.appendChild(card);
+}
+
+
+
+
+
+
+
+
+      /*  function uploadImages() {
+  const form = document.getElementById("uploadForm");
+  const formData = new FormData(form);
+
+  // Convertir los datos del formulario a un objeto JSON
+  const formDataJson = {};
+  formData.forEach((value, key) => {
+    formDataJson[key] = value;
+  });
+
+  fetch("http://localhost:5000/api/vestidos", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formDataJson),
+  })
+    .then((response) => response.json())
+    .then((formData) => {
+      const formDataContainer = document.getElementById("formDataContainer");
+      formDataContainer.innerHTML = ""; // Limpiar contenido previo
+
+      // Crear elementos para mostrar los datos del formulario
+      for (const key in formData) {
+        if (formData.hasOwnProperty(key)) {
+          const fieldDiv = document.createElement("div");
+          fieldDiv.innerHTML = `<strong>${key}:</strong> ${formData[key]}`;
+          formDataContainer.appendChild(fieldDiv);
+        }
+      }
+    })
+    .catch((error) => console.error(`Error fetching form data: ${error.message}`));
+}
+
+// Llama a la función fetchFormData() cuando la página cargue para mostrar los datos iniciales
+uploadImages();*/
+
+
+
+
+
+
+
+
+       /* function uploadImages() {
+  const form = document.getElementById("uploadForm");
+  const formData = new FormData(form);
+
+  fetch("http://localhost:5000/api/vestidos", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((formData) => {
+      const formDataContainer = document.getElementById("formDataContainer");
+      formDataContainer.innerHTML = ""; 
+      fetchImages();// Limpiar contenido previo
+
+      // Crear elementos para mostrar los datos del formulario
+      for (const key in formData) {
+        if (formData.hasOwnProperty(key)) {
+          const fieldDiv = document.createElement("div");
+          fieldDiv.innerHTML = `<strong>${key}:</strong> ${formData[key]}`;
+          formDataContainer.appendChild(fieldDiv);
+        }
+      }
+    })
+    .catch((error) => console.error(`Error fetching form data: ${error.message}`));
+}
+
+// Llama a la función fetchFormData() cuando la página cargue para mostrar los datos iniciales
+uploadImages();
+
+
+
+
+
+
+
+
+
+
+/*function uploadImages() {
+  const form = document.getElementById("uploadForm");
+  const formData = new FormData(form);
+
+  fetch("http://localhost:5000/api/vestidos", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error uploading form: ${response.status} ${response.statusText}`);
+      }
+      return response.text();
+    })
+    .then((message) => {
+      console.log(message);
+      // Actualiza la lista de imágenes después de cargar el formulario
+      fetchImages();
+    })
+    .catch((error) => {
+      console.error(`Error: ${error.message}`);
+      document.getElementById("errorMessage").textContent = `Error: ${error.message}`;
+    });
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       // const nombreVestido = "Nombre del vestido a eliminar";
+
+/*fetch(`/api/vestidos/${nombreVestido}`, {
+  method: 'DELETE',
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Error al eliminar el vestido');
+  }
+  return response.json();
+})
+.then(data => {
+  console.log('Vestido eliminado exitosamente:', data.deletedVestido);
+})
+.catch(error => {
+  console.error('Error al eliminar el vestido:', error);
+});*/
+
       </script>
     </main>
   </body>

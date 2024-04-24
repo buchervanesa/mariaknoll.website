@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Image Upload</title>
+  </head>
+  <body>
+    <main>
+      <form id="uploadForm">
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" name="categoria">
+          <option value="pantalones">Pantalones</option>
+          <option value="tops">Tops</option>
+          <option value="vestidos">Vestidos</option>
+        </select><br><br>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre"><br><br>
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio"><br><br>
+        <label for="imagen">Imagen:</label>
+        <input type="file" name="imagen" accept="image/*" multiple required />
+        <button type="button" onclick="uploadImages()">Upload</button>
+      </form>
+
+      <h2>Uploaded Images</h2>
+
+      <div id="imageContainer"></div>
+
+      <div id="errorMessage" style="color: red"></div>
+
+      <div id="productosContainer"></div>
+
+      <script>
+        // Function to handle image upload
+        function renderProducts(products) {
+  const productsContainer = document.getElementById('productsContainer');
+  productsContainer.innerHTML = '';
+
+}
+
+      </script>
+    </main>
+  </body>
+</html>
