@@ -3,25 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Display de Categorías</title>
+    <title>Display de Productos</title>
   </head>
   <body>
-    <h1>Display de Categorías</h1>
+    <h1>Display de Productos</h1>
 
-    <!-- Sección para mostrar todas las categorías -->
+    <!-- Sección para mostrar todas las Productos -->
     <div id="listaCategorias"></div>
 
     <!-- <script src="script.js"></script> -->
     <script>
-      // Función para cargar y mostrar las categorías
+      // Función para cargar y mostrar las Productos
       async function cargarCategorias() {
         try {
           const response = await fetch("/productos");
           if (!response.ok) {
-            throw new Error("Hubo un problema al obtener las categorías");
+            throw new Error("Hubo un problema al obtener las Productos");
           }
           const categorias = await response.json();
-          // Obtener el contenedor de categorías
+          // Obtener el contenedor de Productos
           const listaCategorias = document.getElementById("listaCategorias");
           // Limpiar cualquier contenido previo
           listaCategorias.innerHTML = "";
@@ -42,16 +42,16 @@
             : "<p>No hay imágenes disponibles</p>"
         }
       `;
-            // Agregar el elemento de lista al contenedor de categorías
+            // Agregar el elemento de lista al contenedor de Productos
             listaCategorias.appendChild(categoriaElement);
           });
         } catch (error) {
           console.error(error);
-          alert("Hubo un problema al cargar las categorías");
+          alert("Hubo un problema al cargar las Productos");
         }
       }
 
-      // Llamar a la función cargarCategorias al cargar la página para mostrar las categorías
+      // Llamar a la función cargarCategorias al cargar la página para mostrar las Productos
       cargarCategorias();
     </script>
   </body>

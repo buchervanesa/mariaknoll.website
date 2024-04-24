@@ -4,6 +4,21 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
+const app = express();
+
+// Conexión a la base de datos MongoDB
+const MONGO_URI = process.env.MONGO_URI;
+const dbName = "MariaKnollDB";
+const connectDB = async () => {
+  try {
+    console.log(MONGO_URI);
+    await mongoose.connect(MONGO_URI, { dbName });
+    console.log("Conexión a la base de datos establecida");
+  } catch (error) {
+    console.error("Error al conectar a la base de datos:", error);
+  }
+};
+
 const productoSchema = new mongoose.Schema({
   categoria: { type: String, required: true },
   nombre: { type: String, required: true },
@@ -11,55 +26,54 @@ const productoSchema = new mongoose.Schema({
   imagenes: [{ type: String }],
 });
 
-const Producto = mongoose.model("Categoria", productoSchema);
+const Producto = mongoose.model("Producto", productoSchema);
+// const Producto = mongoose.model("Producto", new mongoose.Schema({}));
 
-const app = express();
-
-// Conexión a la base de datos MongoDB
-mongoose
-  .connect("mongodb://localhost:27017/tu_base_de_datos", { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Conexión a la base de datos establecida"))
-  .catch((err) => console.error("Error al conectar a la base de datos:", err));
+const uploadDir = "public/uploads/";
+// Verifica si la carpeta de destino existe, si no, la crea
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Configura Multer para manejar la subida de imágenes
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadDir = "public/uploads/";
-    // Verifica si la carpeta de destino existe, si no, la crea
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
+
 const upload = multer({ storage: storage });
 
 // Middleware para parsear el cuerpo de las solicitudes en formato JSON
 app.use(express.json());
 app.use(express.static("public"));
 
-// ========== login... ==========
-app.use(express.urlencoded({ extended: true }));
-const users = [{ username: "fgp555", password: "Electron5.pe" }];
+// Ruta para manejar el formulario de categoría
+app.post("/productos/crear", upload.array("imagenes"), async (req, res) => {
+  try {
+    // Extrae los campos del formulario
+    const { categoria, nombre, precio } = req.body;
 
-app.get("/admin", (req, res) => {
-  res.sendFile(__dirname + "/private/login.html");
-});
+    // Crea una nueva categoría en la base de datos
+    const nuevaCategoria = new Producto({
+      categoria,
+      nombre,
+      precio,
+      imagenes: req.files.map((file) => file.filename), // Guarda los nombres de las imágenes
+    });
 
-app.post("/admin", (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find((u) => u.username === username && u.password === password);
-  if (user) {
-    const adminPath = path.join(__dirname, "private", "admin.html");
-    res.sendFile(adminPath);
-  } else {
-    res.send("Login failed");
+    // Guarda la nueva categoría en la base de datos
+    await nuevaCategoria.save();
+
+    res.status(201).json({ mensaje: "Categoría creada con éxito" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al crear la categoría" });
   }
 });
-// ========== login. ==========
 
 // Ruta para obtener todas las categorías
 app.get("/productos", async (req, res) => {
@@ -103,30 +117,6 @@ app.put("/productos/:id", async (req, res) => {
   }
 });
 
-// Ruta para manejar el formulario de categoría
-app.post("/productos/crear", upload.array("imagenes"), async (req, res) => {
-  try {
-    // Extrae los campos del formulario
-    const { categoria, nombre, precio } = req.body;
-
-    // Crea una nueva categoría en la base de datos
-    const nuevaCategoria = new Producto({
-      categoria,
-      nombre,
-      precio,
-      imagenes: req.files.map((file) => file.filename), // Guarda los nombres de las imágenes
-    });
-
-    // Guarda la nueva categoría en la base de datos
-    await nuevaCategoria.save();
-
-    res.status(201).json({ mensaje: "Categoría creada con éxito" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al crear la categoría" });
-  }
-});
-
 // Ruta para obtener solo las categorías según la opción proporcionada
 app.get("/productos/:categoria", async (req, res) => {
   try {
@@ -144,8 +134,50 @@ app.get("/productos/:categoria", async (req, res) => {
   }
 });
 
+// ========== login... ==========
+app.use(express.urlencoded({ extended: true }));
+
+let USER = process.env.USER;
+let PASSWORD = process.env.PASSWORD;
+console.log({ USER, PASSWORD });
+
+const users = [{ USER, PASSWORD }];
+const loginAttempts = {}; // Objeto para mantener un registro de los intentos de inicio de sesión por dirección IP
+
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "/private/login.html"));
+});
+
+app.post("/admin", (req, res) => {
+  const ip = req.ip; // Obtener la dirección IP del cliente
+  const { username, password } = req.body;
+  const user = users.find((u) => u.USER === username && u.PASSWORD === password);
+
+  // Verificar si ya ha excedido el límite de intentos por IP
+  if (loginAttempts[ip] >= 3 && Date.now() - loginAttempts[ip + "_timestamp"] < 30 * 60 * 1000) {
+    return res.send("Por favor, espera 30 minutos antes de intentarlo de nuevo.");
+  }
+
+  if (user) {
+    // Restablecer el contador de intentos si el inicio de sesión es exitoso
+    loginAttempts[ip] = 0;
+    const adminPath = path.join(__dirname, "private", "admin.html");
+    res.sendFile(adminPath);
+  } else {
+    // Incrementar el contador de intentos si el inicio de sesión falla
+    loginAttempts[ip] = (loginAttempts[ip] || 0) + 1;
+    loginAttempts[ip + "_timestamp"] = Date.now();
+    res.send("Inicio de sesión fallido");
+  }
+  console.log(loginAttempts);
+});
+// ========== login. ==========
+
 // Puerto en el que escucha el servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+  });
 });

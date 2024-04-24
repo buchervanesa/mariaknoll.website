@@ -20,40 +20,69 @@
   <body>
     <h1>Administrador de Productos</h1>
 
-    <!-- Formulario para crear una nueva Productos -->
-    <h2>Crear Nueva Productos</h2>
+    <h2>Crear Nuevo Producto</h2>
     <form id="productoForm" enctype="multipart/form-data">
-      <label for="producto">Productos:</label><br />
-      <select id="producto" name="producto">
-        <option value="opcion1">Opción 1</option>
-        <option value="opcion2">Opción 2</option>
-        <option value="opcion3">Opción 3</option>
-        <!-- Agrega más opciones según sea necesario --></select
+      <label for="categoria">Categoría:</label><br />
+      <select id="categoria" name="categoria">
+        <option value="Vestidos">Vestidos</option>
+        <option value="Pantalones">Pantalones</option>
+        <option value="Tops">Tops</option></select
       ><br /><br />
 
       <label for="nombre">Nombre:</label><br />
-      <input type="text" id="nombre" name="nombre" /><br /><br />
+      <input type="text" id="nombre" name="nombre" value="Producto 1"/><br /><br />
 
       <label for="precio">Precio:</label><br />
-      <input type="number" id="precio" name="precio" /><br /><br />
+      <input type="number" id="precio" name="precio" value="10"/><br /><br />
 
       <label for="imagenes">Imágenes:</label><br />
       <input type="file" id="imagenes" name="imagenes" multiple /><br /><br />
-      <!-- <input type="file" id="fileInput" multiple /> -->
       <div id="preview"></div>
 
-      <script>
-        document.getElementById("imagenes").addEventListener("change", function (event) {
-          const preview = document.getElementById("preview");
-          preview.innerHTML = ""; // Limpiar previas imágenes
+      <button type="button" onclick="crearProducto()">Crear Producto</button>
+    </form>
 
-          const files = event.target.files;
-          for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            if (!file.type.startsWith("image/")) continue;
+    <h2>Lista de Productos</h2>
+    <div id="listaProductos"></div>
 
+    <h2>Actualizar Producto</h2>
+    <form id="updateForm">
+      <label for="idUpdate">ID del Producto a actualizar:</label><br />
+      <input type="text" id="idUpdate" name="idUpdate" /><br /><br />
+
+      <label for="categoriaUpdate">Nueva Categoría:</label><br />
+      <select id="categoriaUpdate" name="categoriaUpdate">
+        <option value="Vestidos">Vestidos</option>
+        <option value="Pantalones">Pantalones</option>
+        <option value="Tops">Tops</option>
+      </select>
+      <br /><br />
+
+      <label for="nombreUpdate">Nuevo Nombre:</label><br />
+      <input type="text" id="nombreUpdate" name="nombreUpdate" /><br /><br />
+
+      <label for="precioUpdate">Nuevo Precio:</label><br />
+      <input type="number" id="precioUpdate" name="precioUpdate" /><br /><br />
+
+      <button type="button" onclick="actualizarProducto()">Actualizar Producto</button>
+    </form>
+
+    <script>
+      const productoForm = document.getElementById("productoForm");
+      const categoriaInput = document.getElementById("categoria");
+      const nombreInput = document.getElementById("nombre");
+      const precioInput = document.getElementById("precio");
+      const imagenesInput = document.getElementById("imagenes");
+      const preview = document.getElementById("preview");
+      const listaProductos = document.getElementById("listaProductos");
+
+      imagenesInput.addEventListener("change", () => {
+        preview.innerHTML = ""; // Limpiar previas imágenes
+
+        Array.from(imagenesInput.files).forEach((file) => {
+          if (file.type.startsWith("image/")) {
             const reader = new FileReader();
-            reader.onload = function () {
+            reader.onload = () => {
               const img = document.createElement("img");
               img.classList.add("preview-image");
               img.src = reader.result;
@@ -62,46 +91,10 @@
             reader.readAsDataURL(file);
           }
         });
-      </script>
+      });
 
-      <button type="button" onclick="crearproducto()">Crear Productos</button>
-    </form>
-
-    <!-- Sección para leer todas los productos -->
-    <h2>Lista de Productoss</h2>
-    <div id="listaProductos"></div>
-
-    <!-- Formulario para actualizar un producto -->
-    <h2>Actualizar Productos</h2>
-    <form id="updateForm">
-      <label for="idUpdate">ID de Productos:</label><br />
-      <input type="text" id="idUpdate" name="idUpdate" /><br /><br />
-
-      <label for="categoriaUpdate">Nueva Productos:</label><br />
-      <select id="categoriaUpdate" name="categoriaUpdate">
-        <option value="Vestidos">Vestidos</option>
-        <option value="Pantalones">Pantalones</option>
-        <option value="Tops">Tops</option>
-        <!-- Agrega más opciones según sea necesario --></select
-      ><br /><br />
-
-      <label for="nombreUpdate">Nuevo Nombre:</label><br />
-      <input type="text" id="nombreUpdate" name="nombreUpdate" /><br /><br />
-
-      <label for="precioUpdate">Nuevo Precio:</label><br />
-      <input type="number" id="precioUpdate" name="precioUpdate" /><br /><br />
-
-      <button type="button" onclick="actualizarproducto()">Actualizar Productos</button>
-    </form>
-
-    <!-- Formulario para eliminar un producto -->
-
-    <!-- <script src="script.js"></script> -->
-    <script>
-      // Función para crear una nueva Productos
-      async function crearproducto() {
-        const form = document.getElementById("productoForm");
-        const formData = new FormData(form);
+      async function crearProducto() {
+        const formData = new FormData(productoForm);
 
         try {
           const response = await fetch("/productos/crear", {
@@ -111,8 +104,7 @@
           if (!response.ok) {
             throw new Error("Hubo un problema al crear el producto");
           }
-          alert("Productos creada con éxito");
-          // Llama a leerProductos para actualizar la lista después de crear una nueva Productos
+          alert("Producto creado con éxito");
           leerProductos();
         } catch (error) {
           console.error(error);
@@ -120,71 +112,15 @@
         }
       }
 
-      // Función para actualizar un producto
-      async function actualizarproducto() {
-        const form = document.getElementById("updateForm");
-        const formData = new FormData(form);
-        const id = formData.get("idUpdate");
-        const categoria = formData.get("categoriaUpdate");
-        const nombre = formData.get("nombreUpdate");
-        const precio = formData.get("precioUpdate");
-
-        const data = {
-          categoria,
-          nombre,
-          precio,
-        };
-
-        try {
-          const response = await fetch(`/productos/${id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          });
-          if (!response.ok) {
-            throw new Error("Hubo un problema al actualizar el producto");
-          }
-          alert("Productos actualizada con éxito");
-          // Llama a leerProductos para actualizar la lista después de actualizar un producto
-          leerProductos();
-        } catch (error) {
-          console.error(error);
-          alert("Hubo un problema al actualizar el producto");
-        }
-      }
-
-      // Función para eliminar un producto
-      async function eliminarproducto(id) {
-        try {
-          const response = await fetch(`/productos/${id}`, {
-            method: "DELETE",
-          });
-          if (!response.ok) {
-            throw new Error("Hubo un problema al eliminar el producto");
-          }
-          alert("Productos eliminada con éxito");
-          // Llama a leerProductos para actualizar la lista después de eliminar un producto
-          leerProductos();
-        } catch (error) {
-          console.error(error);
-          alert("Hubo un problema al eliminar el producto");
-        }
-      }
-
-      // Función para leer todas los productos
       async function leerProductos() {
         try {
           const response = await fetch("/productos");
           if (!response.ok) {
             throw new Error("Hubo un problema al obtener los productos");
           }
-          const Productos = await response.json();
-          // Muestra los productos en el elemento listaProductos
-          const listaProductos = document.getElementById("listaProductos");
+          const productos = await response.json();
           listaProductos.innerHTML = "";
-          Productos.forEach((producto) => {
+          productos.forEach((producto) => {
             let imagesHTML = "";
             if (producto.imagenes && producto.imagenes.length > 0) {
               producto.imagenes.forEach((imagen) => {
@@ -192,12 +128,12 @@
               });
             }
             listaProductos.innerHTML += `
-          <p>ID: ${producto._id}, Categoria: ${producto.categoria}, Nombre: ${producto.nombre}, Precio: ${producto.precio}</p>
-          ${imagesHTML}
-          <button onclick="mostrarFormularioActualizar('${producto._id}', '${producto.producto}', '${producto.nombre}', '${producto.precio}')">Actualizar</button>
-          <button onclick="eliminarproducto('${producto._id}')">Eliminar</button>
-          <hr>
-        `;
+            <p>ID: ${producto._id}, Categoría: ${producto.categoria}, Nombre: ${producto.nombre}, Precio: ${producto.precio}</p>
+            ${imagesHTML}
+            <button onclick="mostrarFormularioActualizar('${producto._id}', '${producto.categoria}', '${producto.nombre}', '${producto.precio}')">Actualizar</button>
+            <button onclick="eliminarProducto('${producto._id}')">Eliminar</button>
+            <hr>
+          `;
           });
         } catch (error) {
           console.error(error);
@@ -205,15 +141,54 @@
         }
       }
 
-      // Función para mostrar el formulario de actualización con los datos de el producto seleccionada
-      function mostrarFormularioActualizar(id, producto, nombre, precio) {
+      async function actualizarProducto() {
+        const id = document.getElementById("idUpdate").value;
+        const categoria = document.getElementById("categoriaUpdate").value;
+        const nombre = document.getElementById("nombreUpdate").value;
+        const precio = document.getElementById("precioUpdate").value;
+
+        const data = { categoria, nombre, precio };
+
+        try {
+          const response = await fetch(`/productos/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) {
+            throw new Error("Hubo un problema al actualizar el producto");
+          }
+          alert("Producto actualizado con éxito");
+          leerProductos();
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al actualizar el producto");
+        }
+      }
+
+      async function eliminarProducto(id) {
+        try {
+          const response = await fetch(`/productos/${id}`, {
+            method: "DELETE",
+          });
+          if (!response.ok) {
+            throw new Error("Hubo un problema al eliminar el producto");
+          }
+          alert("Producto eliminado con éxito");
+          leerProductos();
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al eliminar el producto");
+        }
+      }
+
+      function mostrarFormularioActualizar(id, categoria, nombre, precio) {
         document.getElementById("idUpdate").value = id;
-        document.getElementById("categoriaUpdate").value = producto;
+        document.getElementById("categoriaUpdate").value = categoria;
         document.getElementById("nombreUpdate").value = nombre;
         document.getElementById("precioUpdate").value = precio;
       }
 
-      // Llama a la función leerProductos para mostrar todas los productos al cargar la página
       leerProductos();
     </script>
   </body>
