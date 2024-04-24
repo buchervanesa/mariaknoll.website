@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
+const dotenv = require("dotenv");
 
+
+dotenv.config();
 const app = express();
 
 // Conexión a la base de datos MongoDB
