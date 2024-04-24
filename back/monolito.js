@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -57,10 +59,11 @@ app.post('/api/vestidos', upload.single('imagen'), async (req, res) => {
   }
 });
 
-app.delete('/api/vestidos/:id', async (req, res) => {
+
+app.delete('/api/vestidos/:nombre', async (req, res) => {
   try {
-    const vestidoId = req.params.id;
-    const deletedVestido = await Vestido.findByIdAndDelete(vestidoId);
+    const nombre = req.params.nombre;
+    const deletedVestido = await Vestido.findOneAndDelete({ nombre });
     if (!deletedVestido) {
       return res.status(404).json({ error: 'Vestido no encontrado' });
     }
@@ -70,6 +73,7 @@ app.delete('/api/vestidos/:id', async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar el vestido' });
   }
 });
+
 
 app.get("/:filename", (req, res) => {
   const filename = req.params.filename;
