@@ -137,24 +137,30 @@ app.get("/productos/:categoria", async (req, res) => {
 // ========== login... ==========
 app.use(express.urlencoded({ extended: true }));
 
-let USER = process.env.USER;
-let PASSWORD = process.env.PASSWORD;
-console.log({ USER, PASSWORD });
+let USER1 = process.env.USER1;
+let PASSWORD1 = process.env.PASSWORD1;
+console.log({ USER1: USER1, PASSWORD1: PASSWORD1 });
 
-const users = [{ USER, PASSWORD }];
+const users = [{ USER1: USER1, PASSWORD1: PASSWORD1 }];
 const loginAttempts = {}; // Objeto para mantener un registro de los intentos de inicio de sesión por dirección IP
 
 app.get("/admin", (req, res) => {
+  const ip = req.ip; // Obtener la dirección IP del cliente
+
+  // Verificar si ya ha excedido el límite de intentos por IP
+  if (loginAttempts[ip] >= 2 && Date.now() - loginAttempts[ip + "_timestamp"] < 30 * 1000) {
+    return res.send("Por favor, espera 30 minutos antes de intentarlo de nuevo.");
+  }
   res.sendFile(path.join(__dirname, "/private/login.html"));
 });
 
 app.post("/admin", (req, res) => {
   const ip = req.ip; // Obtener la dirección IP del cliente
   const { username, password } = req.body;
-  const user = users.find((u) => u.USER === username && u.PASSWORD === password);
+  const user = users.find((u) => u.USER1 === username && u.PASSWORD1 === password);
 
   // Verificar si ya ha excedido el límite de intentos por IP
-  if (loginAttempts[ip] >= 3 && Date.now() - loginAttempts[ip + "_timestamp"] < 30 * 60 * 1000) {
+  if (loginAttempts[ip] >= 2 && Date.now() - loginAttempts[ip + "_timestamp"] < 30 * 1000) {
     return res.send("Por favor, espera 30 minutos antes de intentarlo de nuevo.");
   }
 
