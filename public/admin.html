@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav>
-            <a class="linkss" href="./index2.html">Inicio</a>
+            <a class="linkss" href="/index.html">Inicio</a>
         </nav>
     </header>
     <h1>Formulario de Creación de Productos</h1>
@@ -55,7 +55,7 @@
             }
     
             try {
-                const response = await axios.post('http://localhost:5000/api/vestidos', formData, {
+                const response = await axios.post('http://localhost:3000/productos', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -72,7 +72,7 @@
     card.classList.add('card');
 
     const imageElement = document.createElement('img');
-    imageElement.src = `http://localhost:5000/${image.imagen}`;
+    imageElement.src = `http://localhost:3000/productos${image.imagen}`;
     imageElement.alt = image.nombre;
 
     const cardBody = document.createElement('div');
@@ -156,7 +156,7 @@ function renderCards(images, container) {
 
 
 function fetchImages() {
-    fetch('http://localhost:5000/api/vestidos')
+    fetch('http://localhost:3000/productos')
     .then((response) => {
         if (!response.ok) {
             throw new Error(`Error fetching images: ${response.status} ${response.statusText}`);
@@ -181,7 +181,7 @@ function fetchImages() {
 }
 
 
-fetch('http://localhost:5000/api/vestidos')
+fetch('http://localhost:3000/productos')
     .then(response => response.json())
     .then(images => {
         const container = document.getElementById('container');
@@ -197,7 +197,7 @@ fetchImages(); // Llamar a fetchImages al cargar la página para renderizar las 
 
 // Crear función para eliminar un vestido por nombre
 function deleteVestido(nombre) {
-    fetch(`http://localhost:5000/api/vestidos/${nombre}`, {
+    fetch(`http://localhost:3000/productos/${nombre}`, {
         method: 'DELETE'
     })
     .then((response) => {
@@ -230,5 +230,7 @@ deleteButton.onclick = function () {
 
     </script>
     
+<footer><h3>Creado por :</h3>
+    <p class="credit"><span>Front:⠀ <a href="https://www.instagram.com/vanesabucher/">Vanesa bucher</a></span> <span>Back:⠀  <a href="//frankgp.com/contact" >FrankGP</a></span></p></footer>
 </body>
 </html>

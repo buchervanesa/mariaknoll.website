@@ -1,234 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Productos</title>
-    <link rel="stylesheet" href="./styles/style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <a class="linkss" href="./index2.html">Inicio</a>
-        </nav>
-    </header>
-    <h1>Formulario de Creación de Productos</h1>
-    <form id="crearProductoForm">
-        <label for="categoria">Categoría:</label>
-        <select id="categoria" name="categoria">
-            <option value="pantalones">Pantalones</option>
-            <option value="tops">Tops</option>
-            <option value="vestidos">Vestidos</option>
-        </select><br><br>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre"><br><br>
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" name="precio"><br><br>
-        <label for="imagen">Imagen:</label>
-        <input type="file" id="imagen" name="imagen" multiple><br><br>
-        <button type="submit">Crear Producto</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrador de Productos</title>
+    <link rel="stylesheet" href="./styles/styleAdmin.css">
+    <style>
+      #preview {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .preview-image {
+        width: 150px;
+        height: 150px;
+        margin: 10px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    
+    <h1>Administrador de Productos</h1>
+
+    
+    <form id="productoForm" enctype="multipart/form-data"><h2>Crear Nuevo Producto</h2>
+      <label for="categoria">Categoría:</label><br />
+      <select id="categoria" name="categoria">
+        <option value="Vestidos">Vestidos</option>
+        <option value="Pantalones">Pantalones</option>
+        <option value="Tops">Tops</option></select
+      ><br /><br />
+
+      <label for="nombre">Nombre:</label><br />
+      <input type="text" id="nombre" name="nombre" value="Producto 1"/><br /><br />
+
+      <label for="precio">Precio:</label><br />
+      <input type="number" id="precio" name="precio" value="10"/><br /><br />
+
+      <label for="imagenes" class="custom-file-upload">
+        <input class="btn" type="file" id="imagenes" name="imagenes" multiple />Imágenes:</label><br />
+      <br />
+      <div id="preview"></div>
+
+      <button type="button" onclick="crearProducto()">Crear Producto</button>
     </form>
-    <div id="cardsContainer"></div>
 
-    <div id="container"></div>
+    <h2>Lista de Productos</h2>
+    <div id="listaProductos" class="listaProductos"></div>
 
+    
+    <form id="updateForm"><h2>Actualizar Producto</h2>
+      <label for="idUpdate">ID del Producto a actualizar:</label><br />
+      <input type="text" id="idUpdate" name="idUpdate" /><br /><br />
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <label for="categoriaUpdate">Nueva Categoría:</label><br />
+      <select id="categoriaUpdate" name="categoriaUpdate">
+        <option value="Vestidos">Vestidos</option>
+        <option value="Pantalones">Pantalones</option>
+        <option value="Tops">Tops</option>
+      </select>
+      <br /><br />
+
+      <label for="nombreUpdate">Nuevo Nombre:</label><br />
+      <input type="text" id="nombreUpdate" name="nombreUpdate" /><br /><br />
+
+      <label for="precioUpdate">Nuevo Precio:</label><br />
+      <input type="number" id="precioUpdate" name="precioUpdate" /><br /><br />
+
+      <button type="button" onclick="actualizarProducto()">Actualizar Producto</button>
+    </form>
+    
+
+    <footer><h3>Creado por :</h3>
+      <p class="credit"><span>Front:⠀ <a href="https://www.instagram.com/vanesabucher/">Vanesa bucher</a></span> <span>Back:⠀  <a href="//frankgp.com/contact" >FrankGP</a></span></p></footer>
 
     <script>
-        const form = document.getElementById('crearProductoForm');
-    
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-    
-            const categoria = document.querySelector('#categoria').value;
-            const nombre = document.querySelector('#nombre').value;
-            const precio = parseInt(document.querySelector('#precio').value);
-            const imagen = document.querySelector('#imagen').files;
-    
-            const formData = new FormData();
-            formData.append('categoria', categoria);
-            formData.append('nombre', nombre);
-            formData.append('precio', precio);
-            for (let i = 0; i < imagen.length; i++) {
-                formData.append('imagen', imagen[i]);
-            }
-    
-            try {
-                const response = await axios.post('http://localhost:5000/api/vestidos', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                console.log(response.data);
-                // Puedes realizar acciones adicionales según la respuesta del servidor
-            } catch (error) {
-                console.error('Error al crear el producto:', error);
-            }
+      const productoForm = document.getElementById("productoForm");
+      const categoriaInput = document.getElementById("categoria");
+      const nombreInput = document.getElementById("nombre");
+      const precioInput = document.getElementById("precio");
+      const imagenesInput = document.getElementById("imagenes");
+      const preview = document.getElementById("preview");
+      const listaProductos = document.getElementById("listaProductos");
+
+      imagenesInput.addEventListener("change", () => {
+        preview.innerHTML = ""; // Limpiar previas imágenes
+
+        Array.from(imagenesInput.files).forEach((file) => {
+          if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const img = document.createElement("img");
+              img.classList.add("preview-image");
+              img.src = reader.result;
+              preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+          }
         });
+      });
 
-        function renderCard(image, container) {
-    const card = document.createElement('div');
-    card.classList.add('card');
+      async function crearProducto() {
+        const formData = new FormData(productoForm);
 
-    const imageElement = document.createElement('img');
-    imageElement.src = `http://localhost:5000/${image.imagen}`;
-    imageElement.alt = image.nombre;
-
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
-
-    const title = document.createElement('h5');
-    title.classList.add('card-title');
-    title.textContent = image.nombre;
-
-    const category = document.createElement('p');
-    category.classList.add('card-text');
-    category.textContent = `Categoría: ${image.categoria}`;
-
-    const price = document.createElement('p');
-    price.classList.add('card-text');
-    price.textContent = `Precio: ${image.precio}`;
-
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Eliminar';
-    deleteButton.onclick = function () {
-        deleteVestido(image.nombre); // Llamar a deleteVestido con el nombre del vestido
-    };
-
-
-    cardBody.appendChild(category);
-    cardBody.appendChild(title);
-   
-    cardBody.appendChild(price);
-card.appendChild(deleteButton);
-    
-    card.appendChild(cardBody);
-    card.appendChild(imageElement);
-    
-    container.appendChild(card);
-
-}
-
-
-
-function renderCards(images, container) {
-    const categories = {
-        'pantalones': [],
-        'tops': [],
-        'vestidos': [],
-        'todos': []
-    };
-
-    images.forEach(image => {
-        if (image.categoria === 'pantalones') {
-            categories['pantalones'].push(image);
-        } else if (image.categoria === 'tops') {
-            categories['tops'].push(image);
-        } else if (image.categoria === 'vestidos') {
-            categories['vestidos'].push(image);
+        try {
+          const response = await fetch("/productos/crear", {
+            method: "POST",
+            body: formData,
+          });
+          if (!response.ok) {
+            throw new Error("Hubo un problema al crear el producto");
+          }
+          alert("Producto creado con éxito");
+          leerProductos();
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al crear el producto");
         }
+      }
 
-        categories['todos'].push(image);
-    });
-
-    for (const category in categories) {
-        if (categories.hasOwnProperty(category)) {
-            const categoryContainer = document.createElement('div');
-            categoryContainer.classList.add('category-container');
-            container.appendChild(categoryContainer);
-
-            const categoryHeader = document.createElement('h2');
-            categoryHeader.textContent = category === 'todos' ? 'Todos' : category;
-            categoryContainer.appendChild(categoryHeader);
-
-            const categoryImages = categories[category];
-            categoryImages.forEach(image => {
-                renderCard(image, categoryContainer);
-            });
+      async function leerProductos() {
+        try {
+          const response = await fetch("/productos");
+          if (!response.ok) {
+            throw new Error("Hubo un problema al obtener los productos");
+          }
+          const productos = await response.json();
+          listaProductos.innerHTML = "";
+          productos.forEach((producto) => {
+            let imagesHTML = "";
+            if (producto.imagenes && producto.imagenes.length > 0) {
+              producto.imagenes.forEach((imagen) => {
+                imagesHTML += `<img src="uploads/${imagen}" alt="Imagen de ${producto.nombre}" style="max-width: 100px; max-height: 100px; margin-right: 5px;">`;
+              });
+            }
+            listaProductos.innerHTML += `
+            <p>ID: ${producto._id}, Categoría: ${producto.categoria}, Nombre: ${producto.nombre}, Precio: ${producto.precio}</p>
+            ${imagesHTML}
+            <button onclick="mostrarFormularioActualizar('${producto._id}', '${producto.categoria}', '${producto.nombre}', '${producto.precio}')">Actualizar</button>
+            <button onclick="eliminarProducto('${producto._id}')">Eliminar</button>
+            <hr>
+          `;
+          });
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al obtener los productos");
         }
-    }
-}
+      }
 
+      async function actualizarProducto() {
+        const id = document.getElementById("idUpdate").value;
+        const categoria = document.getElementById("categoriaUpdate").value;
+        const nombre = document.getElementById("nombreUpdate").value;
+        const precio = document.getElementById("precioUpdate").value;
 
+        const data = { categoria, nombre, precio };
 
-
-
-
-function fetchImages() {
-    fetch('http://localhost:5000/api/vestidos')
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`Error fetching images: ${response.status} ${response.statusText}`);
+        try {
+          const response = await fetch(`/productos/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          if (!response.ok) {
+            throw new Error("Hubo un problema al actualizar el producto");
+          }
+          alert("Producto actualizado con éxito");
+          leerProductos();
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al actualizar el producto");
         }
-        return response.json();
-    })
-    .then((images) => {
-        const cardsContainer = document.getElementById('cardsContainer');
-        cardsContainer.innerHTML = ''; // Limpiar el contenedor antes de renderizar nuevas cards
+      }
 
-        images.forEach((image) => {
-            renderCard(image, cardsContainer);
-        });
-    })
-    .catch((error) => {
-        console.error(`Error: ${error.message}`);
-        const errorMessage = document.getElementById('errorMessage');
-        if (errorMessage) {
-            errorMessage.textContent = `Error: ${error.message}`;
+      async function eliminarProducto(id) {
+        try {
+          const response = await fetch(`/productos/${id}`, {
+            method: "DELETE",
+          });
+          if (!response.ok) {
+            throw new Error("Hubo un problema al eliminar el producto");
+          }
+          alert("Producto eliminado con éxito");
+          leerProductos();
+        } catch (error) {
+          console.error(error);
+          alert("Hubo un problema al eliminar el producto");
         }
-    });
-}
+      }
 
+      function mostrarFormularioActualizar(id, categoria, nombre, precio) {
+        document.getElementById("idUpdate").value = id;
+        document.getElementById("categoriaUpdate").value = categoria;
+        document.getElementById("nombreUpdate").value = nombre;
+        document.getElementById("precioUpdate").value = precio;
+      }
 
-fetch('http://localhost:5000/api/vestidos')
-    .then(response => response.json())
-    .then(images => {
-        const container = document.getElementById('container');
-        renderCards(images, container);
-    })
-    .catch(error => console.error('Error al obtener las imágenes:', error));
-
-
-fetchImages(); // Llamar a fetchImages al cargar la página para renderizar las cards
-
-
-
-
-// Crear función para eliminar un vestido por nombre
-function deleteVestido(nombre) {
-    fetch(`http://localhost:5000/api/vestidos/${nombre}`, {
-        method: 'DELETE'
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`Error deleting vestido: ${response.status} ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        console.log(data.message);
-        // Aquí puedes realizar acciones adicionales después de eliminar el vestido, como actualizar la lista de vestidos
-        fetchImages(); // Por ejemplo, para actualizar la lista de vestidos después de eliminar uno
-    })
-    .catch((error) => {
-        console.error(`Error: ${error.message}`);
-        
-    });
-}
-
-// Crear botón de "Eliminar" en una card de vestido
-const deleteButton = document.createElement('button');
-deleteButton.textContent = 'Eliminar';
-deleteButton.onclick = function () {
-    // Reemplazar 'image.nombre' con la variable que contiene el nombre del vestido
-    deleteVestido(image.nombre); // Llamar a deleteVestido con el nombre del vestido
-};
-
-// Suponiendo que 'image' es el objeto que contiene los datos del producto
-
-
+      leerProductos();
     </script>
-    
-</body>
+  </body>
 </html>

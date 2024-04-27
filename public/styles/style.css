@@ -11,24 +11,31 @@ body{
   background-image: url("https://img.freepik.com/fotos-premium/textura-marmol-blanco_24076-211.jpg");
   background-size:contain;
 }
-#tira{
-  margin-top: 10px;
+
+#tira {
   text-align: center;
-  font-family:Georgia, 'Times New Roman', Times, serif;font-size: 15px;
-  margin-bottom: 10px;
-  color: rgb(57, 57, 57);
-  background-color: rgba(198, 193, 193, 0.769);
+  font-size: 1.1rem; /* Tamaño de fuente inicial */
+  margin: 1%;
+  background-color: #b7b5b59d;
+  margin-top: 0%;
+  padding-top: 0%;
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+
+#tira img {
+  width: 24px; /* Tamaño de la imagen inicial */
  
+  top: 8%;
+  /* Altura automática para mantener la proporción */
 }
-.contacto{
-  text-align: center;
+header{
+  background-image: url("https://img.freepik.com/foto-gratis/fondo-textura-tela-seda-negra_144627-30418.jpg");
 }
-h1 img{
-  width: 1.9%;
-  position: absolute;
-  left: 43%;
-  top:1%
-}
+
+
 
 .enca{
   display: flex;
@@ -53,39 +60,69 @@ h1 img{
 
 
 .links {
+  display: flex;
   position: absolute;
-  top: 60px; /* Ajusta la distancia desde arriba */
-  left: 85%; /* Centra horizontalmente */
+  top: 4em; /* Ajusta la distancia desde arriba */
+  left: 80%; /* Centra horizontalmente */
   transform: translateX(-50%);
-  background-color: rgba(16, 11, 11, 0.277); /* Fondo semi-transparente para mejor legibilidad */
-  padding: 5px 10px; /* Añade espacio alrededor del texto */
-  border-radius: 20px;
+  background-color: rgba(10, 7, 7, 0.448); /* Fondo semi-transparente para mejor legibilidad */
+  padding: 1vw 1vw; /* Añade espacio alrededor del texto */
+  border-radius: 5vw; /* Utiliza unidades relativas */
   color: rgb(242, 239, 233);
   text-decoration: none; 
-  border: 2px solid rgba(96, 96, 94, 0.791); 
-  box-shadow: 0 2px 4px rgba(139, 136, 136, 0.944);
+  border: 0.2vw solid rgba(96, 96, 94, 0.791); /* Utiliza unidades relativas */
+  box-shadow: 0 0.4vw 0.8vw rgba(84, 81, 81, 0.944); /* Utiliza unidades relativas */
 }
 
 .linkss {
+  display: flex;
   position: absolute;
-  top: 60px; /* Ajusta la distancia desde arriba */
-  left: 70%; /* Centra horizontalmente */
+  top: 4em; 
+  left: 20%; /* Centra horizontalmente */
   transform: translateX(-50%);
   background-color: rgba(10, 8, 8, 0.77); /* Fondo semi-transparente para mejor legibilidad */
-  padding: 5px 10px; /* Añade espacio alrededor del texto */
-  border-radius: 20px;
+  padding: 1vw 2vw; /* Añade espacio alrededor del texto */
+  border-radius: 5vw; /* Utiliza unidades relativas */
   color: rgb(248, 248, 248);
   text-decoration: none; 
-  border: 2px solid rgba(112, 111, 110, 0.799);
-  box-shadow: 0 2px 4px rgba(89, 87, 87, 0.857);
- 
+  border: 0.2vw solid rgba(112, 111, 110, 0.799); /* Utiliza unidades relativas */
+  box-shadow: 0 0.4vw 0.8vw rgba(95, 93, 93, 0.898); /* Utiliza unidades relativas */
 }
 
+/* Media query para ajustar estilos en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .linkss {
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    left: 8%;
+    width: 5%;
+    top: 10%;
+    padding: 2vw 4vw;
+    border-radius: 8vw;
+    border-width: 0.5vw;
+    box-shadow: 0 0.8vw 1.6vw rgba(139, 136, 136, 0.944);
+  }
+}
+@media (max-width: 768px) {
+  .links{
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    left: 92%;
+    width: 5%;
+    top: 10%;
+    padding: 2vw 4vw;
+    border-radius: 8vw;
+    border-width: 0.5vw;
+    box-shadow: 0 0.8vw 1.6vw rgba(139, 136, 136, 0.944);
+  }
+}
 .links a {
   margin: 80%; /* Espacio entre los enlaces */
 }
 
-.menu {
+/* .menu {
   display: flex;
   justify-content: center;
   
@@ -107,42 +144,390 @@ h1 img{
  border-radius: 20px;
   border: 2px solid rgba(231, 226, 219, 0.705); 
   box-shadow: 0 2px 4px rgba(20, 18, 18, 0.44);
+} */
+.contacto{
+  text-align: center;
+  color: #f9f3f3;
+  border-radius: 80px;
+  border: 2px solid black;
+  background-color: #1f1e1ed6;
+  margin-right: 20%;
+  margin-left: 20%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.826);
+  margin-bottom: 4px;
 }
-
 .container {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
 }
-.menu a{
+/* .menu a{
   text-decoration: none;
   color: rgba(248, 249, 251, 0.855);
  
   
-}
-.container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  
-}
+} */
 
 .card {
-  width: 200px;
+  margin-top: 3%;
+  width: 180px;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-background-color: rgba(240, 248, 255, 0.276);
+background-color: rgba(242, 243, 243, 0.796);
+text-align: center;
+
 }
 
 .card img {
   width: 100%;
   border-radius: 5px;
+  aspect-ratio: 9 / 16;
+    object-fit: cover;
 };
-.menu-boton {
+
+.container1 {
+  display: flex;
+  
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.botones2{
+  justify-content: center;
+  text-align: center;
+  margin-top: 2%;
+ 
+}
+
+.botones2 button{
+ margin-right: 6%;
+
+}
+.botones-container {
+  text-align: center;
+  justify-content: center; 
+  color: rgb(218, 221, 223);
+ background-color: #000000cb;
+  gap: 180px; /* Espacio entre los botones */
+  border-radius: 20px;
+  border: 2px solid rgb(84, 82, 82) ;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.69);
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.card-title{
+  margin-top: 3%;
+}
+
+.buttonmodal{
+  margin-left: 80%;
+  text-align: center;
+  justify-content: center;
+  margin-top: 0.3%;
+  border-radius: 10px;
+  background-color: #000000ab;
+  color: #efe8e8;
+  cursor: pointer;
+  
+
+}
+.buttonmodal:hover {
+  background-color: #e9ecef;
+  color: #000000;
+}
+
+#productModal {
+  display: none;
+}
+
+
+.modal-dialog {
+  
+  position: fixed;
+  top: 0em;
+  left: 0;
+  
+  width: 100%;
+  max-width: 1800px; /* Limitar el ancho máximo del modal */
+  background-color: white; /* Fondo blanco del modal */
+  border-radius: 10px; /* Bordes redondeados del modal */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra del modal */
+  overflow: hidden; /* Ocultar el desbordamiento horizontal */
+  height:200%;
+  
+  background-image: url("https://img.freepik.com/fotos-premium/textura-marmol-blanco_24076-211.jpg");
+}
+
+
+
+.modal-body {
+  padding: 20px; /* Espaciado interior del modal */
+  display: flex; /* Utilizar flexbox para alinear los elementos */
+  align-items: center; 
+  /* Centrar verticalmente los elementos */max-height: 8000px;
+}
+.details-container {
+  position: absolute;
+  
+  left: 60%; 
+  top:5%;
+  
+}
+@media (max-width: 768px) {
+  .details-container {
+    position: absolute;
+    text-align: center;
+    left: 60%; 
+    top:5%;
+   font-size: 10px;
+    
+  }
+}
+
+
+
+.image-container{
+
+  width: 90%;
+  margin-top: 1%;
+  border: 2px solid #efe8e8;
+  border-radius: 5%;
+  background-color: rgba(244, 248, 251, 0.911);
+  padding: 3%;
+margin-bottom: 40%;
+
+}
+@media (max-width: 768px) {
+
+  .image-container{
+    width: 90%;
+    margin-top: 0%;
+    border: 2px solid #efe8e8;
+    border-radius: 5%;
+    background-color: rgba(251, 252, 253, 0.911);
+    height: 60vh;
+   
+  
+  }
+}
+
+#modalImage1,
+#modalImage2 {
+  width: 20%;
+  border-radius: 10px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover; /* Bordes redondeados de las imágenes */
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+      width: 100%;
+      margin: 0; /* Eliminar el margen del modal */
+      border-radius: 0; /* Eliminar los bordes redondeados del modal */
+  }
+
+  .modal-body {
+      padding: 10px; /* Reducir el espaciado interior del modal */
+  }
+}
+.delivery-info-1{
+  display: flex;
+ 
+  align-items: center;
+}
+.delivery-info-1 img{
+  width: 30px; /* Ancho en píxeles */
+  height: auto;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .delivery-info-1{
+    display: flex;
+    width: 120%;
+    font-size: 9px;
+    margin-left: 0%;
+    text-align: left;
+  }
+  .delivery-info-1 img{
+    width: 1rem; /* Ancho en píxeles */
+    height: auto;
+    margin-right: 10px;
+  }
+}
+.delivery-info-2{
+  display: flex;
+
+  align-items: center;
+}
+.delivery-info-2 img{
+  width: 30px; /* Ancho en píxeles */
+  height: auto;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .delivery-info-2{
+    display: flex;
+    width: 120%;
+    font-size: 9px;
+    margin-left: 0%;
+    text-align: left;
+  }
+  .delivery-info-2 img{
+    width: 1rem; /* Ancho en píxeles */
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+.delivery-info-3{
+  display: flex;
+  
+  align-items: center;
+}
+.delivery-info-3 img{
+  width: 30px; /* Ancho en píxeles */
+  height: auto;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .delivery-info-3{
+    display: flex;
+    width: 120%;
+    font-size: 9px;
+    margin-left: 0%;
+    text-align: left;
+  }
+  .delivery-info-3 img{
+    width: 1rem; /* Ancho en píxeles */
+    height: auto;
+    margin-right: 10px;
+  }
+}
+.delivery-info-4{
+  display: flex;
+  
+  align-items: center;
+}
+.delivery-info-4 img{
+  width: 30px; /* Ancho en píxeles */
+  height: auto;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .delivery-info-4{
+    display: flex;
+    width: 120%;
+    font-size: 9px;
+    margin-left: 0%;
+    text-align: left;
+  }
+  .delivery-info-4 img{
+    width: 1rem; /* Ancho en píxeles */
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+.delivery-info-5{
+  display: flex;
+
+  align-items: center;
+}
+.delivery-info-5 img{
+  width: 30px; /* Ancho en píxeles */
+  height: auto;
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .delivery-info-5{
+    display: flex;
+    width: 120%;
+    font-size: 9px;
+    margin-left: 0%;
+    text-align: left;
+  }
+  .delivery-info-5 img{
+    width: 1rem; /* Ancho en píxeles */
+    height: auto;
+    margin-right: 10px;
+  }
+}
+.n{
+  text-align: center;
+  background-color: #fffcfcb9;
+  color: #0e0b0b;
+  padding: 1%;
+border-radius: 20px;
+font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.m{
+  text-align: center;
+}
+.m img{
+
+
+width: 150px;
+}
+
+.globos{
+  width: 50px;
+}
+.inicio {
+  display: flex;
+  position: absolute;
+  top: 10%; /* Ajusta el valor según tus necesidades */
+  left: 5%; /* Ajusta el valor según tus necesidades */ 
+  border-radius: 20px;
+  border: 2px solid rgba(87, 85, 85, 0.824);
+  color: #e9ecef;
+  background-color: #000000;
+  padding-inline: 1%;
+  box-shadow: 0 4px 8px rgba(235, 230, 230, 0.443);
+  text-decoration: none;
+}
+
+/* Estilos para los elementos dentro de .inicio */
+.inicio > * {
+  margin-right: 10px; /* Espacio entre elementos, ajusta según necesites */
+}
+footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #656464;
+  color: #efe8e8;
+  margin: 0;
+  padding: 1em;
+  margin-top: 2em;
+  font-size: 10px;
+  text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+footer h3{
+  margin: 0;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+margin-bottom: 0;
+padding: 0;
+}
+footer a{
+  color: inherit;
+}
+footer p{
+  margin: 0;
+  padding: 0.5em;
+}
+footer .credit{
+display: flex;
+gap: 2em;
+}
+/* .menu-boton {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -160,16 +545,16 @@ background-color: rgba(240, 248, 255, 0.276);
 
 /* Estilo base del modal */
 /* Estilo del modal */
-#myCustomModal{
+/* #myCustomModal{
   display: none;
-  position: fixed; /* Cambiamos a posición fija */
-  top: 0px; /* Ajustamos la posición vertical */
-  left: 50%; /* Centramos horizontalmente */
-  transform: translateX(-50%); /* Centramos horizontalmente */
+  position: fixed; 
+  top: 0px; 
+  left: 50%; 
+  transform: translateX(-50%); 
   background-image: url("https://img.freepik.com/fotos-premium/textura-marmol-blanco_24076-211.jpg");
   overflow:scroll;
-  width: 1000%; /* Ajustamos el ancho del modal */
-  max-width: 1100px; /* Limitamos el ancho máximo */
+  width: 1000%; 
+  max-width: 1100px; 
     
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -184,7 +569,7 @@ background-color: rgba(240, 248, 255, 0.276);
 
 
 
-  
+/*   
   .modal-info {
     display: flex;
     flex-wrap: wrap;
@@ -211,7 +596,7 @@ width: 20px;
   
 }
 
-.delivery-info {
+delivery-info {
   position:absolute;
   display: flex;
   flex-wrap: wrap;
@@ -219,33 +604,31 @@ width: 20px;
   justify-content: center;
   margin-top: 0px; 
   
-  left: 40%;/* Espacio entre el nombre/precio y los elementos de entrega */
+  left: 40%;
 }
 
-.delivery-info.delivery-info-1 {
-  top: 30%;/* Estilos para el primer elemento de entrega */
+delivery-info.delivery-info-1 {
+  top: 30%;
 }
 
-.delivery-info.delivery-info-2 {
+delivery-info.delivery-info-2 {
   top: 39%;
 }
-.delivery-info.delivery-info-3 {
+delivery-info.delivery-info-3 {
   top: 49%;
 }
-.delivery-info.delivery-info-4 {
+delivery-info.delivery-info-4 {
   top: 65%;
 }
-.delivery-info.delivery-info-5 {
+delivery-info.delivery-info-5 {
   top: 78%;
 }
-/* Estilo par
-/* Estilo para las imágenes dentro de los elementos de entrega */
-.delivery-info img {
+
+delivery-info img {
   width: 30px;
-  margin-right: 9px; /* Espacio entre la imagen y el texto */
+  margin-right: 9px; 
 }
 
-/* Contenido del modal */
 
 
 .modal-content {
@@ -258,8 +641,8 @@ width: 20px;
   transform: translate(-50%, -50%);
   padding: 20px;
   border: 1px solid #bf2828;
-  width: 400px; /* Tamaño fijo del contenedor */
-  max-width: 100%; /* Evita que el contenedor sea más grande que el viewport */
+  width: 400px; 
+  max-width: 100%; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
@@ -269,60 +652,43 @@ width: 20px;
 }
 @media only screen and (max-width: 600px) {
   .modal-content {
-    width: 100%; /* Ancho del modal al 100% en pantallas pequeñas */
+    width: 100%; 
   }
 }
 
 
-/* Botón de cierre */
+
 .close {
-  color: #aaa; /* Color del botón */
-  float: right; /* Flotar a la derecha */
-  font-size: 28px; /* Tamaño de la fuente */
-  font-weight: bold; /* Negrita */
-}
+  color: #aaa; 
+  float: right; 
+  font-size: 28px; 
+  font-weight: bold; 
 
 .close:hover,
 .close:focus {
-  color: black; /* Cambiar color al pasar el ratón o enfocar */
-  text-decoration: none; /* Quitar subrayado */
-  cursor: pointer; /* Cambiar cursor a mano */
+  color: black; 
+  text-decoration: none; 
+  cursor: pointer; 
 }
 
-/* Imagen del producto en el modal */
 
-/* Descripción del producto en el modal */
-
-/* Media query para pantallas pequeñas */
 @media only screen and (max-width: 600px) {
   .modal-content {
-    width: 100%; /* Ancho del modal al 100% en pantallas pequeñas */
+    width: 100%;
   }
 }
 
 
 .img-small {
-  width: 280px; /* Tamaño deseado para las imágenes pequeñas */
-  height: auto; /* Mantener la proporción de la imagen */
-}
+  width: 280px; 
+  height: auto; 
+} */
 
-form{
+.f-bold{
+  font-weight: bold;
+}
+.text-center{
   text-align: center;
-  background-color: #c2bdbd7d;
-  padding: 2%;
-  font-size: 130%;
- 
-  
- 
-}
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Espacio entre las tarjetas */
 }
 
-.card {
-  /* Estilos de tu tarjeta */
-  /* Puedes ajustar el ancho de la tarjeta según tus necesidades */
-  width: 200px;
-}
+
