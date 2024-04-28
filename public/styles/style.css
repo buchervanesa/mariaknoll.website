@@ -282,6 +282,25 @@ text-align: center;
   padding-top: 3px;
   padding-bottom: 3px;
 }
+
+@media only screen and (max-width: 480px) {
+
+  .botones-container {
+    text-align: center;
+    justify-content: center; 
+    color: rgb(218, 221, 223);
+   background-color: #000000cb;
+    gap: 180px; /* Espacio entre los botones */
+    border-radius: 20px;
+    border: 2px solid rgb(84, 82, 82) ;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.69);
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
+
 .card-title{
   margin-top: 3%;
 }
