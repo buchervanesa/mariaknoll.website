@@ -379,7 +379,7 @@ text-align: center;
   }
   @media only screen and (max-width: 480px) {
     .details-container {
-      position: static; /* Cambia la posición a estática para que siga el flujo normal del documento */
+      position: absolute; /* Cambia la posición a estática para que siga el flujo normal del documento */
       text-align: left; /* Alinea el texto a la izquierda */
       font-size: 14px; /* Ajusta el tamaño de fuente para que sea más legible en dispositivos móviles */
       margin-top: 1em; /* Añade un margen superior para separarlo del contenido anterior */
@@ -405,7 +405,7 @@ margin-bottom: 40%;
 @media (max-width: 768px) {
 
   .image-container{
-    width: 90%;
+    width: 190%;
     margin-top: 0%;
     border: 2px solid #efe8e8;
     border-radius: 5%;
