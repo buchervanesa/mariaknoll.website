@@ -50,6 +50,16 @@ header{
   
 
 }
+@media only screen and (max-width: 600px) {
+  /* Estilos para dispositivos móviles con ancho máximo de 600px */
+  .enca {
+    width: 1px;
+    height: 150px;
+    display: flex;
+}
+  }
+
+
 
 .img {
   border-radius: 10px;
@@ -71,7 +81,7 @@ header{
   color: rgb(242, 239, 233);
   text-decoration: none; 
   border: 0.2vw solid rgba(96, 96, 94, 0.791); /* Utiliza unidades relativas */
-  box-shadow: 0 0.4vw 0.8vw rgba(84, 81, 81, 0.944); /* Utiliza unidades relativas */
+  box-shadow: 0 0.8vw 1.6vw rgba(139, 136, 136, 0.944); /* Utiliza unidades relativas */
 }
 
 .linkss {
@@ -86,8 +96,26 @@ header{
   color: rgb(248, 248, 248);
   text-decoration: none; 
   border: 0.2vw solid rgba(112, 111, 110, 0.799); /* Utiliza unidades relativas */
-  box-shadow: 0 0.4vw 0.8vw rgba(95, 93, 93, 0.898); /* Utiliza unidades relativas */
+  box-shadow: 0 0.8vw 1.6vw rgba(139, 136, 136, 0.944);/* Utiliza unidades relativas */
 }
+
+
+@media only screen and (max-width: 600px) {
+  
+  .linkss {
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    left: 6.5em;
+    width: 5%;
+    top: 10%;
+    padding: 2vw 4vw;
+    border-radius: 8vw;
+    border-width: 0.5vw;
+    box-shadow: 0 0.8vw 1.6vw rgba(139, 136, 136, 0.944);
+}
+}
+
 
 /* Media query para ajustar estilos en pantallas más pequeñas */
 @media (max-width: 768px) {
@@ -95,7 +123,7 @@ header{
     justify-content: center;
     text-align: center;
     font-size: 10px;
-    left: 8%;
+    
     width: 5%;
     top: 10%;
     padding: 2vw 4vw;
@@ -122,6 +150,22 @@ header{
   margin: 80%; /* Espacio entre los enlaces */
 }
 
+@media only screen and (max-width: 600px) {
+  
+  .links {
+    display: flex;
+    position: absolute;
+    left: 81%;
+    transform: translateX(-50%);
+    background-color: rgba(10, 7, 7, 0.448);
+    padding: 2vw 4vw;
+    border-radius: 5vw;
+    color: rgb(242, 239, 233);
+    text-decoration: none;
+    border: 0.2vw solid rgba(96, 96, 94, 0.791);
+    box-shadow: 0 0.8vw 1.6vw rgba(139, 136, 136, 0.944);
+}
+}
 /* .menu {
   display: flex;
   justify-content: center;
@@ -201,6 +245,17 @@ text-align: center;
  
 }
 
+
+@media only screen and (max-width: 600px) {
+  .botones2{
+ 
+    justify-content: space-around;
+        text-align: center;
+        display: flex;
+      margin-right: 7em;
+   
+  }
+}
 .botones2 button{
  margin-right: 6%;
 
@@ -238,6 +293,22 @@ text-align: center;
 .buttonmodal:hover {
   background-color: #e9ecef;
   color: #000000;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .buttonmodal{
+    margin-left: 80%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 1em;
+    border-radius: 10px;
+    background-color: #000000ab;
+    color: #efe8e8;
+    cursor: pointer;
+    
+  
+  }
 }
 
 #productModal {
@@ -288,6 +359,17 @@ text-align: center;
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .details-container {
+    position: absolute;
+    text-align: center;
+    left: 10em;
+    top: 33em;
+    font-size: 10px;
+    
+}
+    
+  }
 
 
 .image-container{
@@ -301,6 +383,9 @@ text-align: center;
 margin-bottom: 40%;
 
 }
+
+
+
 @media (max-width: 768px) {
 
   .image-container{
@@ -321,6 +406,15 @@ margin-bottom: 40%;
   border-radius: 10px;
   aspect-ratio: 9 / 16;
   object-fit: cover; /* Bordes redondeados de las imágenes */
+}
+@media only screen and (max-width: 600px) {
+  #modalImage1,
+#modalImage2 {
+  width: 8.5em;
+  border-radius: 10px;
+  aspect-ratio: 1 / 2;
+  object-fit: cover;
+}
 }
 
 @media (max-width: 768px) {
