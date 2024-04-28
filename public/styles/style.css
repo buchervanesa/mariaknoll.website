@@ -308,7 +308,7 @@ text-align: center;
     justify-content: center; 
     color: rgb(218, 221, 223);
    background-color: #000000cb;
-    gap: 170px; /* Espacio entre los botones */
+    gap: 140px; /* Espacio entre los botones */
     border-radius: 20px;
     border: 2px solid rgb(84, 82, 82) ;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.69);
