@@ -256,6 +256,13 @@ text-align: center;
    
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .botones2 {
+    justify-content: center; /* Centra los elementos horizontalmente */
+    margin-right: 0; /* Elimina el margen derecho */
+  }
+}
 .botones2 button{
  margin-right: 6%;
 
@@ -370,7 +377,16 @@ text-align: center;
 }
     
   }
-
+  @media only screen and (max-width: 480px) {
+    .details-container {
+      position: static; /* Cambia la posición a estática para que siga el flujo normal del documento */
+      text-align: left; /* Alinea el texto a la izquierda */
+      font-size: 14px; /* Ajusta el tamaño de fuente para que sea más legible en dispositivos móviles */
+      margin-top: 1em; /* Añade un margen superior para separarlo del contenido anterior */
+      padding: 0 1em; /* Añade un padding para que el texto no esté pegado a los bordes */
+    }
+  }
+  
 
 .image-container{
 
