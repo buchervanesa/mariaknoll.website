@@ -383,7 +383,7 @@ text-align: center;
       text-align: left; /* Alinea el texto a la izquierda */
       font-size: 14px; /* Ajusta el tamaño de fuente para que sea más legible en dispositivos móviles */
       margin-top: 1em; /* Añade un margen superior para separarlo del contenido anterior */
-      padding: 0 1em; /* Añade un padding para que el texto no esté pegado a los bordes */
+     
     }
   }
   
@@ -411,6 +411,20 @@ margin-bottom: 40%;
     border-radius: 5%;
     background-color: rgba(251, 252, 253, 0.911);
     height: 60vh;
+   
+  
+  }
+}
+
+
+@media only screen and (max-width: 480px) {
+  .image-container{
+    width: 100%;
+    margin-top: 0%;
+    border: 2px solid #efe8e8;
+    border-radius: 5%;
+    background-color: rgba(251, 252, 253, 0.911);
+    height: 80vh;
    
   
   }
