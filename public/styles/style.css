@@ -301,6 +301,23 @@ text-align: center;
   }
 }
 
+@media only screen and (max-width: 600px) {
+
+  .botones-container {
+    text-align: center;
+    justify-content: center; 
+    color: rgb(218, 221, 223);
+   background-color: #000000cb;
+    gap: 170px; /* Espacio entre los botones */
+    border-radius: 20px;
+    border: 2px solid rgb(84, 82, 82) ;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.69);
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
 .card-title{
   margin-top: 3%;
 }
