@@ -405,7 +405,7 @@ text-align: center;
   .details-container {
     position: absolute; /* Cambia la posición a estática para que siga el flujo normal del documento */
     text-align: center;/* font-size: 14px; */
-    top: 23em;
+    top: 20em;
     left: 6em;
     
 }
@@ -415,7 +415,7 @@ text-align: center;
     .details-container {
       position: absolute; /* Cambia la posición a estática para que siga el flujo normal del documento */
            text-align: center;/* font-size: 14px; */
-           top: 23em;
+           top: 20em;
            left: 6em;
      
     }
