@@ -260,8 +260,9 @@ text-align: center;
 @media only screen and (max-width: 480px) {
   .botones2 {
     justify-content: center; /* Centra los elementos horizontalmente */
-    margin-right: 0; /* Elimina el margen derecho */
-    margin-left: 1em;
+
+    margin-right: 2em;
+    margin-left: 3em;
   }
 }
 .botones2 button{
