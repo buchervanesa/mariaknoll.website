@@ -8,8 +8,8 @@
   
 }
 body{
-  background-image: url("https://img.freepik.com/fotos-premium/textura-marmol-blanco_24076-211.jpg");
-  background-size:contain;
+  /* background-image: url("https://img.freepik.com/fotos-premium/textura-marmol-blanco_24076-211.jpg");
+  background-size:contain; */
 }
 
 #tira {
@@ -223,6 +223,36 @@ header{
 background-color: rgba(242, 243, 243, 0.796);
 text-align: center;
 
+}
+
+
+@media only screen and (max-width: 600px) {
+  
+  
+.card {
+  margin-top: 3%;
+  width: 8em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+background-color: rgba(242, 243, 243, 0.796);
+text-align: center;
+}
+}
+
+/* Media query para ajustar estilos en pantallas más pequeñas */
+@media (max-width: 768px) {
+
+  .card {
+    margin-top: 3%;
+    width: 8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgba(242, 243, 243, 0.796);
+  text-align: center;}
 }
 
 .card img {
