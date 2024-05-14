@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maria Knoll</title>
   
-  <link rel="stylesheet" href="/styles/style.css?20240514-002">
+  <link rel="stylesheet" href="/styles/style.css?20240514-003">
  
   
 <!-- Bootstrap CSS -->
@@ -185,7 +185,7 @@
     card.addEventListener("click", () => {
         document.getElementById("modalImage1").src = `/uploads/${producto.imagenes[0]}`;
         document.getElementById("modalImage2").src = `/uploads/${producto.imagenes[1]}`;
-        document.getElementById("modalTitle").innerHTML =`<span class="f-bold" > Nombre:</span> ${producto.nombre}` ;
+        document.getElementById("modalTitle").innerHTML =`<span class="f-bold" > </span> ${producto.nombre}` ;
         document.getElementById("modalCategory").innerHTML = `<span class="f-bold" >Categoría:</span> ${producto.categoria}`;
         document.getElementById("modalPrice").innerHTML = `<span class="f-bold" > Precio:</span>  $${producto.precio}`;
 
