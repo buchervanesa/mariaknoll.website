@@ -1,36 +1,46 @@
 
 body{
-   background-color: #f6e7dc;
+   background-color: #ecebeb;
   }
 h1{
     text-align: center;
+    color: #656464;
     
 }
 
 h2{
     text-align: center;
     margin-top: 0%;
+    color: #656464;
 }
 form{
     text-align: center;
-    background-color:rgba(255, 255, 255, 0.84);
-    padding: 2%;
+    background-color:rgba(255, 255, 255, 0.976);
+    padding: 3%;
     font-size: 130%;
+    border-radius: 20px;
+    margin-bottom: 2%;
    
      
    
   } 
 input{
-    border-radius: 20px;
+    border-radius: 10px;
     text-align: center;
     padding: 0.5%;
+    width: 100%;
+    font-size: 20px;
 }  
+
+
+
 
 
 select{
     border-radius: 20px;
     text-align: center;
     padding: 0.5%;  
+    font-size: 20px;
 }
 
 .custom-file-upload {
@@ -57,9 +67,9 @@ button, .btn{
     border-radius: 20px;
     text-align: center;
     padding: 0.9%;  
-    background-color: black;
+    background-color: rgb(132, 129, 129);
     color: aliceblue;
-    border-color: rgb(91, 94, 97);
+
 }
 .listaProductos{
     text-align: center;
